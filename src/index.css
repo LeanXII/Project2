@@ -146,6 +146,8 @@ button:focus-visible {
   justify-content: center;
   border: 1px solid black;
   box-shadow: 1px 1px 1px black;
+  border-radius: 8px;
+
 }
 
 .search-input{

@@ -9,10 +9,8 @@ const currentUrl = location.state.pokemon.url;
 useEffect(() =>{
 fetch(currentUrl)
 .then(res => res.json())
-.then()
-
-}
-)
+.then(data => setCurrPokemon(data));
+}, [currentUrl]);
 
 const addToTeam = () => {
     if (team.length >= maxTeam) {
@@ -24,7 +22,7 @@ const addToTeam = () => {
       return;
     }
     setTeam([...team, {
-      ...currpokemon,
+      ...currPokemon,
       health: 100,
       happiness:100,
       hunger: 100
