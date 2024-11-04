@@ -2,32 +2,41 @@ import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import PokeCard from './PokeCard';
 
-const PokeList = ({currentList, currentSearch}) =>{
+const PokeList = ({currIndex, currentSearch}) =>{
+  const [currentPokemon, setCurrentPokemon] = useState({})
+
   const navigate = useNavigate();
 
   const handleClick = (url, index) =>{
     navigate(`/pokemon/${index+1}`, {state: {pokemonUrl: url}})
   }
+  let currUrl = `https://pokeapi.co/api/v2/pokemon/${currIndex}`
+  useEffect(()=>{
+    fetch(currUrl)
+    .then(res=>res.json())
+    .then(data=>setCurrentPokemon(data))
+  }, [])
 
-  console.log(currentList)
-  console.log(currentSearch)
-  let filteredList = currentList
-  if(currentSearch !== ''){
-    filteredList = currentList.filter((elm=>elm.name.toLowerCase().includes(currentSearch.toLowerCase())))
-   
+
+  if(currentSearch && !currentPokemon.name.toLowerCase().includes(currentSearch.toLowerCase())){
+    return null;
   }
 
+if(Object.keys(currentPokemon).length===0){
   return(
-    filteredList.map((pokemon, index)=>{
-      return(
+    <div>
+      Loading
+    </div>
+  )
+}
 
-      <div key = {index}>
-        <h1>{pokemon.name}</h1>
-        <img onClick = {()=>handleClick(pokemon.url, index)}src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index+1}.png`} />
+  return(
+
+      <div className = "list-pokemon">
+        <p>{currentPokemon.name}</p>
+        <img onClick={()=>handleClick(currUrl, currentPokemon.id)}src={currentPokemon.sprites.front_default} />
       </div>
 
-      )
-    })
   )
 
 

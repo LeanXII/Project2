@@ -29,14 +29,25 @@ const PokeHome = () => {
   return(
     <div>
 <input
+    className = "search-input"
     type="text"
     value={searchValue}
     onChange={(event) => handleSearch(event.target.value)}
     placeholder="Search By Name"
 />
 
+    <div className = "poke-container">
 
-      <PokeList currentList = {currPokeList} currentSearch = {searchValue} />
+      {currPokeList.map((pokemon, index)=> {
+        return(
+
+
+          <PokeList key = {index+1} currIndex = {index+1} currentSearch = {searchValue} />
+
+        )
+      })}
+      </div>
+
     </div>
   )
 

@@ -11,6 +11,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
 }
 
 a {
@@ -24,10 +29,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 h1 {
@@ -68,13 +72,13 @@ button:focus-visible {
 }
 
 .move-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust size as needed */
+  display:grid;
   gap: 10px; /* Space between moves */
   padding: 20px 0;
 }
 
 .move-card {
+
   background-color: #e0e0e0;
   color: black;
   border-radius: 8px;
@@ -82,15 +86,69 @@ button:focus-visible {
   text-align: center;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s;
+
 }
 
 .poke-details {
-  background-color: rgb(60, 57, 57);
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  display:grid;
+  grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
+  gap: 16px;
+  /* background-color: rgb(60, 57, 57); */
   padding: 10px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 
+
+
+
+
+}
+
+.poke-details:hover {
+  transform: scale(1.07); /* Scale effect on hover */
+}
+
+.poke-details img {
+
+  margin: auto;
+  width: 200px; /* Set a fixed size for images */
+  height: 200px;
+
+
+
+}
+
+.home-link {
+ position: fixed;
+ top: 20px;
+
+}
+
+.team-link{
+  position: fixed;
+  top: 40px;
+}
+
+.poke-container{
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: 20%;
+
+}
+
+.list-pokemon{
+  /* padding: 0px 100px 20px 0px; */
+  margin-left: 60px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px black;
+}
+
+.search-input{
+  position: fixed;
+  top: 80px
 }

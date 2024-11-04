@@ -1,25 +1,41 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, Link} from 'react-router-dom'
 import { useState } from 'react'
 import PokeHome from'./PokeHome'
 import PokeCard from './PokeCard'
-import PokeTeam from './PokeTeam'
+// import PokeTeam from './PokeTeam'
 
 
 function App() {
   const[team, setTeam]= useState([])
+const max_team_size = 6
 
   return(
+<>
+<nav style = {{
+    padding: '1rem',
+    // backgroundColor: '#f0f0f0',
+    marginBottom: '2rem'
+}}>
+  <div className='home-link'>
+    <Link to="/">Home</Link>
+  </div>
+  <div className = "team-link">
+    <Link to="/team">My Team({team.length}/{max_team_size})</Link>
+  </div>
+
+</nav>
+
 
     <Routes>
       <Route path = '/' element = {<PokeHome />} />
       <Route path = '/pokemon/:id' element = {<PokeCard team={team}
-      setTeam={setTeam} />} />
-      <Route path='/team' element={ <PokeTeam team={team}
-      setTeam={setTeam} />}/>
+      setTeam={setTeam} maxTeam={max_team_size} />} />
+      {/* <Route path='/team' element={ <PokeTeam team={team}
+      setTeam={setTeam} />}/> */}
       </Routes>
-
+</>
     //   {/* <Route path = '/team' element = {} ></Route> */}
-    // </Routes>
+    //</Routes>
 
   )
 
