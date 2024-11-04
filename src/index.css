@@ -66,3 +66,31 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.move-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust size as needed */
+  gap: 10px; /* Space between moves */
+  padding: 20px 0;
+}
+
+.move-card {
+  background-color: #e0e0e0;
+  color: black;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+.poke-details {
+  background-color: rgb(60, 57, 57);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+
+}
