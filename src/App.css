@@ -1,4 +1,4 @@
-/* 
+/*
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -34,3 +34,31 @@
 .read-the-docs {
   color: #888;
 } */
+
+.add-team-btn, .remove-team-btn{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+margin-top: 15px;
+transition: all 0.3s ease;
+}
+
+.add-team-btn{
+background-color: #4caf50;
+color: white;
+}
+
+.add-team-btn:hover{
+background-color: #45a049;
+}
+
+.remove-team-btn{
+  background-color: #f44336;
+color: white;
+}
+
+.remove-team-btn: hover{
+  background-color: #da190b;
+}
