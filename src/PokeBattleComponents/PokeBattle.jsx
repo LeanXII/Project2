@@ -57,7 +57,9 @@ const PokeBattle = () => {
           if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('water') || opponentTypeArray.includes('rock') || opponentTypeArray.includes('dragon')){
             multiplier = 0.5
            }
-          if(opponentTypeArray.includes('wat'))
+          if(opponentTypeArray.includes('wat')){
+            
+          }
 
 
         }
