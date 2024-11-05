@@ -14,7 +14,7 @@ body {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
 
 
 }
@@ -160,5 +160,30 @@ button:focus-visible {
 
 .poke-img {
 
+
+}
+
+
+.battlefield{
+  display: grid;
+  grid-template: repeat(16, 1fr)/repeat(16, 1fr);
+  height: 100vh;
+  overflo
+
+}
+
+
+.opponent{
+  grid-area: 6/10/7/11;
+}
+
+.your-fighter{
+  grid-area: 7/8/8/9;
+}
+
+.turn-checker{
+  position: fixed;
+  top: 150px;
+  left: 200px;
 
 }

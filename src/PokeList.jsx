@@ -2,20 +2,20 @@ import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import PokeCard from './PokeCard';
 
-const PokeList = ({currIndex, currentSearch}) =>{
-  const [currentPokemon, setCurrentPokemon] = useState({})
-
-  const navigate = useNavigate();
+const PokeList = ({currIndex, currentSearch, team, setTeam, maxTeam }) =>{
+  const [currentPokemon, setCurrPokemon] = useState({})
+  const navigate = useNavigate()
 
   const handleClick = (url, index) =>{
     navigate(`/pokemon/${index+1}`, {state: {pokemonUrl: url}})
   }
   let currUrl = `https://pokeapi.co/api/v2/pokemon/${currIndex}`
+
   useEffect(()=>{
     fetch(currUrl)
     .then(res=>res.json())
-    .then(data=>setCurrentPokemon(data))
-  }, [])
+    .then(data=>setCurrPokemon(data))
+  }, [currIndex])
 
 
   if(currentSearch && !currentPokemon.name.toLowerCase().includes(currentSearch.toLowerCase())){

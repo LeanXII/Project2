@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react';
-import{useLocation} from'react-router-dom';
+import{useNavigate} from'react-router-dom';
 
 const PokeTeam =({ team, setTeam, maxTeam})=> {
   const [currPokemon, setCurrPokemon] = useState({});
+
+  let navigate = useNavigate()
 
 
 
@@ -11,36 +13,32 @@ const PokeTeam =({ team, setTeam, maxTeam})=> {
   // .then(res => res.json())
   // .then(data => setCurrPokemon(data));
   // }, [currentUrl]);
-  console.log(team)
-  const addToTeam = () => {
-    if (team.length >= maxTeam) {
-      alert('Team is Full');
-      return;
-    }
-    if(team.some(pokemon => pokemon.id === currPokemon.id)) {
-      alert('This Pokemon is already in your team!');
-      return;
-    }
-    setTeam([...team, {
-      ...currPokemon,
-      health: 100,
-      happiness:100,
-      hunger: 100
-    }]);
+  const handleBattleSelection = (pokemon) =>{
+    navigate('/battle', {state: {fighter: pokemon}})
   }
-  console.log(team)
-  return (
 
-    team.map((pokemon, index)=>{
+const handleCareSelection = (pokemon) =>{
+navigate('/care', {state: { pokemon, setTeam} });
+};
+
+
+
+  return (
+    <div>
+
+    <h1>Select a pokemon from your team for a battle!</h1>
+    {team.map((pokemon, index)=>{
 
       return(
         <div key = {index}className = "team-pokemon">
           <p>{pokemon.name}</p>
-          <img src = {pokemon.sprites.front_default}></img>
+          <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
+        <button onClick={() => handleCareSelection(pokemon)}> Care for{pokemon.name}</button>
         </div>
       )
 
-    })
+    })}
+    </div>
   );
 };
 

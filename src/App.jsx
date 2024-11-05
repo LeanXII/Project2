@@ -3,6 +3,8 @@ import { useState } from 'react'
 import PokeHome from'./PokeHome'
 import PokeCard from './PokeCard'
 import PokeTeam from './PokeTeam'
+import PokeBattle from './PokeBattleComponents/PokeBattle'
+import PokeCare from './PokeCare'
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
       setTeam={setTeam} maxTeam={max_team_size} />} />
       <Route path='/team' element={ <PokeTeam team={team}
       setTeam={setTeam} />}/>
+      <Route path= '/battle' element={<PokeBattle />} />
+      <Route path= '/care' element={<PokeCare />}/>
     </Routes>
 </>
     //   {/* <Route path = '/team' element = {} ></Route> */}

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import PokeList  from './PokeList';
 
-const PokeHome = () => {
+const PokeHome = ({team, setTeam, maxTeam}) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=151")
   const [currPokeList, setCurrPokeList] = useState([])
   const [searchValue, setSearchValue] = useState('')
@@ -37,21 +37,21 @@ const PokeHome = () => {
 />
 
     <div className = "poke-container">
-
       {currPokeList.map((pokemon, index)=> {
-        return(
-
-
-          <PokeList key = {index+1} currIndex = {index+1} currentSearch = {searchValue} />
-
-        )
-      })}
+      return(
+          <PokeList
+          key = {index+1}
+          currIndex = {index+1}
+          currentSearch = {searchValue}
+          team = {team}
+          setTeam = {setTeam}
+          maxTeam = {maxTeam}
+          />
+      );
+        })}
       </div>
-
     </div>
   )
-
-
 }
 
 export default PokeHome

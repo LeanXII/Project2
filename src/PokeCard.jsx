@@ -36,16 +36,9 @@ const handleTeamAction = () => {
 
 
 
-    const handleBack = () =>{
-        navigate('/')
-    }
 
-    const AddToTeam = (pokemon) =>{
-        setTeam(prevState => (
-            [...prevState, pokemon]
-        ))
 
-    }
+
 
 
     if(Object.keys(currPokemon).length===0) {
