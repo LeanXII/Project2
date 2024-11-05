@@ -17,6 +17,7 @@ const PokeBattle = () => {
   let randomOpId = Math.floor(Math.random() * 151)
 
 
+
   useEffect(()=>{
     fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
     .then(res=>res.json())
@@ -36,15 +37,55 @@ const PokeBattle = () => {
 
 
 
-  const changeOpponentHp = (damage) =>{
+  const changeOpponentHp = (damage, attackType, moveType) =>{
+
+    let opponentTypeArrayObject = opponent.types;
+    let opponentTypeArray = opponentTypeArrayObject.map((elm => elm.type.name))
+
+
+
+    let multiplier = 1;
+
+      switch(moveType){
+
+        case "normal":
+          if (opponentTypeArray.includes('rock')){
+            multiplier = 0.5
+           }
+        break;
+        case "fire":
+          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('water') || opponentTypeArray.includes('rock') || opponentTypeArray.includes('dragon')){
+            multiplier = 0.5
+           }
+          if(opponentTypeArray.includes('wat'))
+
+
+        }
+
+
+
+
+
+
+    let finalDamage;
+
+    switch(attackType){
+      case "special":
+         finalDamage = (((2/5 +2)*damage *pokemon.stats[3].base_stat/opponent.stats[4].base_stat/50)+2)
+      break;
+      case "physical":
+         finalDamage = (((2/5 +2)*damage *pokemon.stats[1].base_stat/opponent.stats[2].base_stat/50)+2)
+      break;
+
+    }
     setOpponentHp((prevState=>{
-      console.log(opponent.stats[2].base_stat)
-      let finalDamage = (((2/5 +2)*damage *pokemon.stats[1].base_stat/opponent.stats[2].base_stat/50)+2)
-      return prevState-finalDamage
+
+
+      return Math.floor(prevState-finalDamage)
   }))
+}
 
 
-  
 
 
 
@@ -73,6 +114,6 @@ const PokeBattle = () => {
     </div>
   )
 }
-}
+
 
 export default PokeBattle

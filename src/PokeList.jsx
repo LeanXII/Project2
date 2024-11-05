@@ -26,7 +26,7 @@ const PokeList = ({currIndex, currentSearch, team, setTeam, maxTeam }) =>{
 const handleTeamAction = (e) => {
   e.stopPropagation()
 
-  const isInteam = team.some(pokemon => pokemon.id === currentPokemon.id)
+  const isInTeam = team.some(pokemon => pokemon.id === currentPokemon.id)
 
 if (isInTeam){
   setTeam (team.filter (pokemon => pokemon.id !== currentPokemon.id))

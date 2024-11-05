@@ -12,7 +12,7 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
       .then(res=>res.json())
       .then(data=> {
         // setMoveDamage(data.power)
-          changeOpponentHp(data.power)
+          changeOpponentHp(data.power, data.damage_class.name, data.type.name)
         })
     }
   }
@@ -28,7 +28,7 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
 
       <h3>Moves:</h3>
       {pokemon.moves.slice(0, 4).map(move => (
-        <div onClick={()=>handleMoveSelect(move.move.url)} key={move.move.name} >
+        <div className = "battle-moves" onClick={()=>handleMoveSelect(move.move.url)} key={move.move.name} >
              {move.move.name}
         </div>))}
 

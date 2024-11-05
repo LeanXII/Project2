@@ -188,6 +188,10 @@ button:focus-visible {
 
 }
 
+.battle-moves{
+  cursor: pointer;
+}
+
 .meter {
 margin-bottom: 20px;
 overflow: hidden;

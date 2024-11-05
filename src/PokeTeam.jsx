@@ -21,7 +21,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (team.length > 0) {
-    local.storage.setItem('pokemonTeam', JSON.stringify(team));
+    localStorage.setItem('pokemonTeam', JSON.stringify(team));
   }
 }, []);
 

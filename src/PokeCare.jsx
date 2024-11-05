@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const PokeCare = ({pokemon}) =>{
+const PokeCare = ({pokemon, setTeam}) =>{
 // const location = useLocation();
 const navigate = useNavigate();
 
