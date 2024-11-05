@@ -1,14 +1,19 @@
+import {useState} from 'react'
+
+
+const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
+ const [moveDamage, setMoveDamage] = useState('')
 
 
 
-const Player = ({pokemon, playerTurn, setPlayerTurn, hp}) =>{
-
-
-
-
-  const handleMoveSelect = () => {
+  const handleMoveSelect = (moveUrl) => {
     if(playerTurn){
-
+      fetch(moveUrl)
+      .then(res=>res.json())
+      .then(data=> {
+        // setMoveDamage(data.power)
+          changeOpponentHp(data.power)
+        })
     }
   }
 
@@ -23,7 +28,7 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp}) =>{
 
       <h3>Moves:</h3>
       {pokemon.moves.slice(0, 4).map(move => (
-        <div key={move.move.name} >
+        <div onClick={()=>handleMoveSelect(move.move.url)} key={move.move.name} >
              {move.move.name}
         </div>))}
 

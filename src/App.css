@@ -34,7 +34,9 @@
 .read-the-docs {
   color: #888;
 } */
-
+.pokemon-card {
+  position: relative;
+}
 .add-team-btn, .remove-team-btn{
   padding: 10px 20px;
   border: none;
@@ -61,4 +63,40 @@ color: white;
 
 .remove-team-btn: hover{
   background-color: #da190b;
+}
+
+.team-toggle-btn {
+position: absolute;
+top: 10px;
+left: 10px;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+border: none;
+cursor: pointer;
+font-size: 20px;
+font-weight: bold;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all .2s ease;
+z-index: 1;
+}
+
+.team-toggle-btn.add{
+  background-color: #4caf50;
+color: white;
+}
+
+.team-toggle-btn.remove {
+background-color: #f44336;
+color: white;
+}
+
+.team-toggle-btn:hover{
+transform: scale (1.1);
+}
+
+.team-toggle-btn:active {
+transform: scale (0.9);
 }

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const PokeCare = () =>{
-const location = useLocation();
+const PokeCare = ({pokemon}) =>{
+// const location = useLocation();
 const navigate = useNavigate();
-const { pokemon, setTeam } = location.state;
+
 
 const [hunger, setHunger] = useState(50);
 const [happiness, setHappiness] = useState(50);
@@ -27,7 +27,7 @@ const petPokemon = () => {
 
 const playWithPoke = () => {
     setHappiness((prevHappy) => Math.min(prevHappy + 20, 100));
-    setHunger((prevHunger) => Math.max(prev - 10, 0));
+    setHunger((prevHunger) => Math.max(prevHunger - 10, 0));
 
 };
 
@@ -35,6 +35,17 @@ const playWithPoke = () => {
 //     setLevel(level + 1, 100);
 
 // };
+
+const saveChanges = () => {
+const updatedPokemon = { ...pokemon, hunger, happiness, };
+
+setTeam((prevTeam) =>
+prevTeam.map((p) => (p.name === pokemon.name ? updatedPokemon : p))
+);
+
+navigate('/team');
+
+};
 
 useEffect(() => {
 const interval = setInterval(() => {
@@ -60,7 +71,8 @@ return () =>
 
 
 return (
-<div>
+<div className='poke-care'>
+    <h2>Care for {pokemon.name}</h2>
 
     <div className='meter'>
         <span>Hunger</span>
@@ -82,15 +94,20 @@ return (
     </div>
     </div>
 
-<p>Hunger: {hunger}</p>
+
 <button onClick={feedPokemon}>Feed Pokemon</button>
 <button onClick={petPokemon}>Pet Pokemon</button>
 <button onClick={playWithPoke}>Play with Poke</button>
+<button onClick={saveChanges}>Save Changes</button>
 
 
 
 
 
 </div>
+
+
 );
 }
+
+export default PokeCare;

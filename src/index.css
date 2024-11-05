@@ -187,3 +187,18 @@ button:focus-visible {
   left: 200px;
 
 }
+
+.meter {
+margin-bottom: 20px;
+overflow: hidden;
+
+}
+
+.progress-bar {
+  height: 100%;
+  max-width: 30%;
+  text-align: center;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+  border-radius: 10px;
+}

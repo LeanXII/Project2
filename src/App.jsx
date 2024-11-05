@@ -31,6 +31,13 @@ function App() {
 
 
     <Routes>
+      <Route path ="/" element ={
+<PokeHome
+team = {team}
+setTeam = {setTeam}
+maxTeam = {max_team_size}
+/>
+      }/>
       <Route path = '/' element = {<PokeHome />} />
       <Route path = '/pokemon/:id' element = {<PokeCard team={team}
       setTeam={setTeam} maxTeam={max_team_size} />} />
