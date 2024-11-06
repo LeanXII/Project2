@@ -11,10 +11,14 @@ const PokeBattle = () => {
   const [playerTurn, setPlayerTurn] = useState(true)
   const [playerHp, setPlayerHp] = useState('')
   const [opponentHp, setOpponentHp] = useState('')
+  const [attackMoves, setAttackMoves] = useState('')
+  const [randomPlayerMoves, setRandomPlayerMoves] = useState([]);
+  const [randomOpponentMoves, setRandomOpponentMoves] = useState([]);
 
   let location = useLocation()
   let pokemon = location.state.fighter;
   let randomOpId = Math.floor(Math.random() * 151)
+
 
 
 
@@ -34,20 +38,70 @@ const PokeBattle = () => {
 
   }, [])
 
+  useEffect(()=>{
+    fetch('https://pokeapi.co/api/v2/move-category/damage')
+    .then(res=>res.json())
+    .then(data=> setAttackMoves(data.moves))
+  }, [])
 
-  const handleMoveSelect = (moveUrl) => {
+  useEffect(() => {
+    if (attackMoves.length > 0) {
+
+      let fullPlayerMovesArray = pokemon.moves;
+      let fullOpponentMovesArray = opponent.moves;
+      let flattenedPlayerMovesArray = fullPlayerMovesArray.map((move) => move.move.name);
+      let flattenedOpponentMovesArray = fullOpponentMovesArray.map((move) => move.move.name);
+      let attackArray = attackMoves.map(move => move.name);
+
+
+      let playerAttackMovesArray = flattenedPlayerMovesArray.filter((move) => attackArray.includes(move));
+      let opponentAttackMovesArray = flattenedOpponentMovesArray.filter((move) => attackArray.includes(move));
+
+
+      const getRandomMoves = (movesArray) => {
+        let selectedMoves = [];
+        while (selectedMoves.length < 4) {
+          let randomIndex = Math.floor(Math.random() * movesArray.length);
+          let randomMove = movesArray[randomIndex];
+          if (!selectedMoves.includes(randomMove)) {
+            selectedMoves.push(randomMove);
+          }
+        }
+        return selectedMoves;
+      };
+
+
+      setRandomPlayerMoves(getRandomMoves(playerAttackMovesArray));
+      setRandomOpponentMoves(getRandomMoves(opponentAttackMovesArray));
+    }
+  }, [attackMoves, opponent, pokemon]);
+
+
+
+  const handleMoveSelect = (move) => {
     if(playerTurn){
-      fetch(moveUrl)
+      fetch( `https://pokeapi.co/api/v2/move/${move}`)
       .then(res=>res.json())
       .then(data=> {
         // setMoveDamage(data.power)
           changeOpponentHp(data.power, data.damage_class.name, data.type.name)
           setPlayerTurn(!playerTurn)
+
+          setTimeout(()=>{
+            let move = randomOpponentMoves[Math.floor(Math.random()*4)]
+            fetch(`https://pokeapi.co/api/v2/move/${move}`)
+            .then(res=>res.json())
+            .then(data=>{
+              changePlayerHp(data.power, data.damage_class.name, data.type.name)
+              setPlayerTurn(playerTurn)
+            })
+          }, 2000)
         })
+
     }
   }
 
-  
+
 
 
   const changeOpponentHp = (damage, attackType, moveType) =>{
@@ -200,6 +254,156 @@ const PokeBattle = () => {
   }))
 }
 
+const changePlayerHp = (damage, attackType, moveType) =>{
+
+  let playerTypeArrayObject = pokemon.types;
+  let playerTypeArray = playerTypeArrayObject.map((elm => elm.type.name))
+
+
+
+  let multiplier = 1;
+
+    switch(moveType){
+
+      case "normal":
+        if (playerTypeArray.includes('rock')){
+          multiplier = 0.5
+         }
+      break;
+      case "fire":
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('water') || playerTypeArray.includes('rock') || playerTypeArray.includes('dragon')){
+          multiplier = 0.5
+         }
+        if(playerTypeArray.includes('grass')|| playerTypeArray.includes('ice')||playerTypeArray.includes('bug')){
+          multiplier = 2;
+        }
+      break;
+      case "water":
+        if(playerTypeArray.includes('water')|| playerTypeArray.includes('grass') || playerTypeArray.includes('dragon')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock')){
+          multiplier = 2;
+        }
+      break;
+      case "electric":
+        if(playerTypeArray.includes('electric') || playerTypeArray.includes('grass') || playerTypeArray.includes('dragon')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('water') || playerTypeArray.includes('flying')){
+          multiplier = 2;
+        }
+      break;
+      case "grass":
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug') || playerTypeArray.includes('dragon')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('water') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock')){
+          multiplier = 2;
+        }
+      break;
+      case "ice":
+        if(playerTypeArray.includes('water') || playerTypeArray.includes('ice')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('grass') || playerTypeArray.includes('ground') || playerTypeArray.includes('flying') || playerTypeArray.includes('dragon')){
+          multiplier = 2;
+        }
+      break;
+      case "fighting":
+        if(playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('psychic') || playerTypeArray.includes('bug')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('normal') || playerTypeArray.includes('ice') || playerTypeArray.includes('rock')){
+          multiplier = 2;
+        }
+      break;
+      case "poison":
+        if(playerTypeArray.includes('poison') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock') || playerTypeArray.includes('ghost')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
+          multiplier = 2;
+        }
+      break;
+      case "ground":
+        if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('electric') || playerTypeArray.includes('poison') || playerTypeArray.includes('rock')){
+          multiplier = 2;
+        }
+      break;
+      case "flying":
+        if(playerTypeArray.includes('electric') || playerTypeArray.includes('rock')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('grass') || playerTypeArray.includes('fighting') || playerTypeArray.includes('bug')){
+          multiplier = 2;
+        }
+      break;
+      case "psychic":
+        if(playerTypeArray.includes('psychic')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('fighting') || playerTypeArray.includes('poison')){
+          multiplier = 2;
+        }
+      break;
+      case "bug":
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('fighting') || playerTypeArray.includes('flying') || playerTypeArray.includes('ghost')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('psychic')){
+          multiplier = 2;
+        }
+      break;
+      case "rock":
+        if(playerTypeArray.includes('fighting') || playerTypeArray.includes('ground')){
+          multiplier = 0.5;
+        }
+        if(playerTypeArray.includes('fire') || playerTypeArray.includes('ice') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug')){
+          multiplier = 2;
+        }
+      break;
+      case "ghost":
+        if(playerTypeArray.includes('ghost')){
+          multiplier = 2;
+        }
+      break;
+      case "dragon":
+        if(playerTypeArray.includes('dragon')){
+          multiplier  = 2;
+        }
+      break;
+
+
+      }
+
+
+
+
+
+
+  let finalDamage;
+
+  switch(attackType){
+    case "special":
+       finalDamage = (((2/5 +2)*damage *opponent.stats[3].base_stat/pokemon.stats[4].base_stat/50)+2)*multiplier
+
+    break;
+    case "physical":
+       finalDamage = (((2/5 +2)*damage *opponent.stats[1].base_stat/pokemon.stats[2].base_stat/50)+2)*multiplier
+      //  console.log('with multiplier: ', finalDamage)
+      //  console.log('without multiplier:', finalDamage/multiplier)
+    break;
+
+  }
+  setPlayerHp((prevState=>{
+    return Math.floor(prevState-finalDamage)
+}))
+}
+
 
 
 
@@ -227,12 +431,12 @@ const PokeBattle = () => {
       </div>
       <div className = "your-fighters-info">
 
-      <p>Current Hp: {playerHp}</p>
-
+      <p>Current Hp:</p>
+      <p className = "hp-bar" style={{width: `${playerHp/pokemon.stats[0].base_stat*100}%`}}>{playerHp}/{pokemon.stats[0].base_stat}</p>
       <h3>Moves:</h3>
-      {pokemon.moves.slice(0, 4).map(move => (
-        <div className = "battle-moves" onClick={()=>handleMoveSelect(move.move.url)} key={move.move.name} >
-             {move.move.name}
+      {randomPlayerMoves.map(move => (
+        <div className = "battle-moves" onClick={()=>handleMoveSelect(move)} key={move} >
+             {move}
         </div>))}
      </div>
 
@@ -241,11 +445,12 @@ const PokeBattle = () => {
         <Opponent pokemon = {opponent} playerTurn = {playerTurn} setPlayerTurn = {setPlayerTurn} hp = {opponentHp} changePlayerHp = {setPlayerHp}/>
       </div>
       <div className = "opponent-info">
-      <p>Current Hp: {opponentHp}</p>
+      <p>Current Hp:</p>
+      <p className = "hp-bar" style = {{width: `${opponentHp/opponent.stats[0].base_stat*100}%`}}>{opponentHp}/{opponent.stats[0].base_stat}</p>
       <h3>Moves:</h3>
-      {opponent.moves.slice(0, 4).map(move => (
-        <div key={move.move.name} >
-             {move.move.name}
+      {randomOpponentMoves.map(move => (
+        <div key={move} >
+             {move}
         </div>))}
       </div>
     </div>
