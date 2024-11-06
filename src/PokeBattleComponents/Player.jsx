@@ -13,6 +13,7 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
       .then(data=> {
         // setMoveDamage(data.power)
           changeOpponentHp(data.power, data.damage_class.name, data.type.name)
+          setPlayerTurn(!playerTurn)
         })
     }
   }
@@ -20,17 +21,8 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
   return(
 
     <>
-    {playerTurn && <p className = 'turn-checker' >Your turn!</p>}
 
-      <p>{pokemon.name}</p>
-      <img src = {pokemon.sprites.back_default} />
-      <p>Current Hp: {hp}</p>
-
-      <h3>Moves:</h3>
-      {pokemon.moves.slice(0, 4).map(move => (
-        <div className = "battle-moves" onClick={()=>handleMoveSelect(move.move.url)} key={move.move.name} >
-             {move.move.name}
-        </div>))}
+     <img src = {pokemon.sprites.back_default} />
 
     </>
 
