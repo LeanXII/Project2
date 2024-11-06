@@ -245,3 +245,9 @@ overflow: hidden;
   border-radius: 5px;
 
 }
+
+.vic-banner{
+  position: fixed;
+  top: 100px;
+  left: 40%;
+}
