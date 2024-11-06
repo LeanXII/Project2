@@ -240,6 +240,10 @@ overflow: hidden;
 
 }
 
+.vic-banner{
+  position: fixed;
+  top: 100px;
+  left: 40%;
 .team-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -261,7 +265,7 @@ overflow: hidden;
 .team-pokemon img {
   width: 25%;
   height:auto;
-  
+
 }
 
 .team-pokemon:hover {
