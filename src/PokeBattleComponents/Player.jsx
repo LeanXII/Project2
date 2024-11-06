@@ -16,6 +16,7 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
           setPlayerTurn(!playerTurn)
         })
     }
+    
   }
 
   return(
