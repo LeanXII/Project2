@@ -1,6 +1,14 @@
-
+import {useState, useEffect} from 'react'
 
 const Opponent = ({pokemon, playerTurn, setPlayerTurn, hp, changePlayerHp }) =>{
+  const [attackMoves, setAttackMoves] = useState([])
+
+
+
+
+
+
+
 
 
 

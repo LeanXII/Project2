@@ -190,13 +190,14 @@ button:focus-visible {
 
 .your-fighters-info{
 
-  grid-area: 7/2/8/3
+  grid-area: 7/2/8/3;
+  width: 160px;
 
 
 }
 .opponent-info{
   grid-area: 6/7/7/9;
-  margin-left:
+  width: 160px;
 
 }
 .battle-scenery{
@@ -229,4 +230,11 @@ overflow: hidden;
   font-weight: bold;
   transition: width 0.5s ease-in-out;
   border-radius: 10px;
+}
+
+.hp-bar{
+  background-color: green;
+  transition: width 0.5s ease-in-out;
+  border-radius: 5px;
+
 }
