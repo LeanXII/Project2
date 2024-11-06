@@ -166,7 +166,7 @@ button:focus-visible {
 
 .battlefield{
   display: grid;
-  grid-template: repeat(16, 1fr)/repeat(9, 1fr);
+  grid-template: repeat(16, 1fr)/repeat(8, 1fr);
   height: 100vh;
 
 
@@ -174,10 +174,11 @@ button:focus-visible {
 
 
 .opponent{
-  grid-area: 6/5/7/6;
+  grid-area: 6/5/7/7;
   display: flex;
-  margin-left: 20%;
+  margin-left: 0%;
   margin-top: 20%;
+
 
 
 
@@ -186,8 +187,10 @@ button:focus-visible {
 .your-fighter{
   grid-area: 7/3/8/4;
   display: flex;
-  margin-left: 90%;
-  margin-bottom: 20%;
+  margin-left: 60%;
+
+  height: 80%;
+
 
 
 }
@@ -199,14 +202,14 @@ button:focus-visible {
 
 }
 .opponent-info{
-  grid-area: 6/7/7/8;
-  margin-left: 10px;
+  grid-area: 6/7/7/9;
+  margin-left:
 
 }
 .battle-scenery{
-  grid-area: 3/3/8/6;
-  height: 108%;
-  width: 134%
+  grid-area: 4/3/8/5;
+  height: 100%;
+  width: 167%
 }
 
 .turn-checker{
