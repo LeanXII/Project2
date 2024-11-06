@@ -16,6 +16,10 @@ const feedPokemon = () => {
     } else {
         setHunger((prevHunger) => Math.min(prevHunger + 20, 100));
         setHappiness((prevHappy) =>Math.min(prevHappy + 5, 100));
+
+        const sprite = document.querySelector('.pokemon-sprite');
+        sprite.classList.add('feeding');
+        setTimeout(() => sprite.classList.remove('feeding'), 300);
     }
 
 };
@@ -73,7 +77,6 @@ return () =>
 return (
 <div className='poke-care'>
     <h2>Care for {pokemon.name}</h2>
-
     <div className='meter'>
         <span>Hunger</span>
         <div className='progress-bar' style={{width:
