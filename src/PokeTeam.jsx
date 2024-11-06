@@ -17,19 +17,20 @@ useEffect(() => {
   const storedTeam = loadTeamFromStorage();
   setTeam(storedTeam);
  }
-}, []);
+}, [setTeam]);
 
 useEffect(() => {
   if (team.length > 0) {
     localStorage.setItem('pokemonTeam', JSON.stringify(team));
   }
-}, []);
+}, [team]);
 
 
 
   const handleBattleSelection = (pokemon) =>{
     navigate('/battle', {state: {fighter: pokemon}})
   }
+
 
 
   console.log(team)
@@ -44,7 +45,8 @@ useEffect(() => {
         <div key = {index}className = "team-pokemon">
           <p>{pokemon.name}</p>
           <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
-
+  
+          
 
         <PokeCare
           pokemon={pokemon}
