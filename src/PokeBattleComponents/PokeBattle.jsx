@@ -47,7 +47,7 @@ const PokeBattle = () => {
     }
   }
 
-
+  
 
 
   const changeOpponentHp = (damage, attackType, moveType) =>{
@@ -218,7 +218,7 @@ const PokeBattle = () => {
 
   return(
     <div className = "battlefield">
-      <img className = 'battle-scenery' src = "src/assets/pokemonBattle.webp" />
+      <img className = 'battle-scenery' src = "src/assets/pokemonBattle.png" />
     {playerTurn && <p className = 'turn-checker' >Your turn!</p>}
     {!playerTurn && <p className = 'turn-checker'>Opponents turn!</p>}
 
