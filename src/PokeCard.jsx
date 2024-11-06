@@ -57,38 +57,39 @@ alert (`${currPokemon.name} was added to your team`);
     }
 
  return (
-<div>
-    <div className='poke-details'>
-    <div className='poke-img'>
-      <img src={currPokemon.sprites.front_default} alt={currPokemon.name}/>
-    </div>
-       <h2>{currPokemon.name}</h2>
-    <div className='base-stats'>
-        <h3>Base Stats:</h3>
-        {currPokemon.stats.map(stat => (
-            <div key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</div>
-
-        ))}
-      </div>
-      <div className='move-list'>
-        <h3>Moves:</h3>
-        {currPokemon.moves.slice(0, 4).map(move => (
-            <div key={move.move.name} className="move-card">
-             {move.move.name}
+    <div style={{ width: '100%', textAlign: 'left' }}>
+        <div className="nav-links" style={{ justifyContent: 'flex-start', padding: '20px' }}>
+            <button
+                onClick={handleTeamAction}
+                className={`nav-button ${isInTeam ? 'remove-team-btn' : 'add-team-btn'}`}
+                style={{ marginLeft: '20px' }}
+            >
+                {isInTeam ? 'Remove from Team' : 'Add to Team'}
+            </button>
         </div>
-   ))}
-      </div>
+
+        <div className='poke-details' style={{ textAlign: 'center' }}>
+            <div className='poke-img'>
+                <img src={currPokemon.sprites.front_default} alt={currPokemon.name}/>
+            </div>
+            <h2>{currPokemon.name}</h2>
+            <div className='base-stats'>
+                <h3>Base Stats:</h3>
+                {currPokemon.stats.map(stat => (
+                    <div key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</div>
+                ))}
+            </div>
+            <div className='move-list'>
+                <h3>Moves:</h3>
+                {currPokemon.moves.slice(0, 4).map(move => (
+                    <div key={move.move.name} className="move-card">
+                        {move.move.name}
+                    </div>
+                ))}
+            </div>
+        </div>
     </div>
-    <button
-    onClick={handleTeamAction}
-className ={isInTeam ? 'remove-team-btn' : 'add-team-btn'}
->
-{isInTeam ? 'Remove from Team' : 'Add to Team'}
-</button>
-</div>
-
-
- );
+);
 };
 
 export default PokeCard;

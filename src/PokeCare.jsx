@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const PokeCare = ({pokemon, setTeam}) =>{
-// const location = useLocation();
 const navigate = useNavigate();
 
 
 const [hunger, setHunger] = useState(50);
 const [happiness, setHappiness] = useState(50);
-// const [level, setLevel] = useState(pokemon.level || 1);
 
 const feedPokemon = () => {
     if (hunger === 100) {

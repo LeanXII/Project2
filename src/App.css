@@ -1,102 +1,101 @@
-/*
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Navigation styles */
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #242424;
+  padding: 1rem;
+  z-index: 1000;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-links {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-
-}
-
-.read-the-docs {
-  color: #888;
-} */
-.pokemon-card {
-  position: relative;
-}
-.add-team-btn, .remove-team-btn{
+.nav-button {
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-cursor: pointer;
-font-weight: bold;
-margin-top: 15px;
-transition: all 0.3s ease;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.add-team-btn{
-background-color: #4caf50;
-color: white;
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.add-team-btn:hover{
-background-color: #45a049;
-}
-
-.remove-team-btn{
+.nav-button.remove-team-btn {
   background-color: #f44336;
-color: white;
 }
 
-.remove-team-btn: hover{
-  background-color: #da190b;
+.nav-button.remove-team-btn:hover {
+  background-color: #d32f2f;
 }
 
-.team-toggle-btn {
-position: absolute;
-top: 10px;
-left: 10px;
-width: 30px;
-height: 30px;
-border-radius: 50%;
-border: none;
-cursor: pointer;
-font-size: 20px;
-font-weight: bold;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all .2s ease;
-z-index: 1;
+.main-content {
+  padding-top: 80px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.team-toggle-btn.add{
-  background-color: #4caf50;
-color: white;
+.poke-card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.team-toggle-btn.remove {
-background-color: #f44336;
-color: white;
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  margin-bottom: 20px;
 }
 
-.team-toggle-btn:hover{
-transform: scale (1.1);
+.poke-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
 }
 
-.team-toggle-btn:active {
-transform: scale (0.9);
+.search-input {
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  background-color: white;
+  color: black;
+}
+
+.poke-container {
+  margin-top: 60px;
+}
+
+.pokeball-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+}
+
+/* Add animation for when pokeballs fill up */
+@keyframes fillPokeball {
+  from { background-color: transparent; }
+  to { background-color: #f44336; }
+}
+
+.pokeball-filled {
+  animation: fillPokeball 0.3s ease-in-out;
 }
