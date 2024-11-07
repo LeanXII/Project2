@@ -39,7 +39,7 @@ useEffect(() => {
   };
 
 
-  console.log(team)
+  
 
   return (
     <div>
@@ -52,6 +52,7 @@ useEffect(() => {
 <<<<<<< HEAD
           <p>{pokemon.name}</p>
           <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
+<<<<<<< HEAD
   
           
 =======
@@ -67,6 +68,10 @@ useEffect(() => {
           <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default} alt={pokemon.name}></img>
 
 >>>>>>> Project2-nh
+=======
+
+
+>>>>>>> c92fca5487510228da6d343a12281bdb86318c99
 
         <PokeCare
           pokemon={pokemon}
