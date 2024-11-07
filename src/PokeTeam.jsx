@@ -39,7 +39,7 @@ useEffect(() => {
   };
 
 
-  
+
 
   return (
     <div>
@@ -49,16 +49,15 @@ useEffect(() => {
 
       return(
         <div key = {index}className = "team-pokemon">
-<<<<<<< HEAD
-          <p>{pokemon.name}</p>
-          <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
-<<<<<<< HEAD
-  
-          
-=======
+
+ 
+
+
+
+
           <div className="team-pokemon-header">
             <p>{pokemon.name}</p>
-            <button 
+            <button
               className="remove-button"
               onClick={(e) => handleRemoveFromTeam(pokemon.id, e)}
             >
@@ -67,11 +66,10 @@ useEffect(() => {
           </div>
           <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default} alt={pokemon.name}></img>
 
->>>>>>> Project2-nh
-=======
 
 
->>>>>>> c92fca5487510228da6d343a12281bdb86318c99
+
+
 
         <PokeCare
           pokemon={pokemon}

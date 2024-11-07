@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import Player from './Player'
 import Opponent from './Opponent'
 import BattleLog from './BattleLog'
+import {gsap} from 'gsap'
 
 
 
@@ -67,7 +68,8 @@ const PokeBattle = () => {
         let selectedMoves = [];
         while (selectedMoves.length < 4) {
           let randomIndex = Math.floor(Math.random() * movesArray.length);
-          let randomMove = movesArray[randomIndex];
+          let randomMove = movesArray[randomIndex].charAt(0).toUpperCase() + movesArray[randomIndex].slice(1);
+
           if (!selectedMoves.includes(randomMove)) {
             selectedMoves.push(randomMove);
           }
@@ -81,10 +83,40 @@ const PokeBattle = () => {
     }
   }, [attackMoves, opponent, pokemon]);
 
+  const animatePlayer = () =>{
+
+    gsap.to(".player-sprite", {
+      ease: "none",
+      y: -60,
+      x: 80,
+
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1
+    })
+    console.log('function called')
+  }
+
+  const animateOpponent = () =>{
+
+    gsap.to(".opponent-sprite", {
+      ease: "none",
+      y: 60,
+      x:-80,
+
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1,
+
+    })
+  }
+
+
 
 
   const handleMoveSelect = (move) => {
     if(playerTurn){
+      move = move.toLowerCase();
       fetch( `https://pokeapi.co/api/v2/move/${move}`)
       .then(res=>res.json())
       .then(data=> {
@@ -94,11 +126,15 @@ const PokeBattle = () => {
 
             setTimeout(()=>{
                 let move = randomOpponentMoves[Math.floor(Math.random()*4)]
+                move = move.toLowerCase()
                 fetch(`https://pokeapi.co/api/v2/move/${move}`)
                 .then(res=>res.json())
                 .then(data=>{
+
+                  animateOpponent()
                   changePlayerHp(data.power, data.damage_class.name, data.type.name, move)
                   setPlayerTurn(playerTurn)
+
                 })
             }, 2000)
 
@@ -303,7 +339,6 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
 
   let playerTypeArrayObject = pokemon.types;
   let playerTypeArray = playerTypeArrayObject.map((elm => elm.type.name))
-
 
   if(playerVictory){
     return
@@ -515,10 +550,6 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
   }
 
 
-  console.log(Object.keys(opponent).length)
-  console.log(opponentList.length)
-
-
   return(
     <div className = "battlefield">
       <BattleLog log = {turnLog} />
@@ -537,8 +568,8 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
       <p className = "hp-bar" style={{width: `${playerHp/pokemon.stats[0].base_stat*100}%`}}>{playerHp}/{pokemon.stats[0].base_stat}</p>
       <h3>Moves:</h3>
       {randomPlayerMoves.map(move => (
-        <div className = "battle-moves" onClick={()=>handleMoveSelect(move)} key={move} >
-             {move}
+        <div className = "battle-moves" onClick={()=>{handleMoveSelect(move); animatePlayer()}}  key={move} >
+             <span className = "move">{move}</span>
         </div>))}
      </div>
 
@@ -552,7 +583,7 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
       <h3>Moves:</h3>
       {randomOpponentMoves.map(move => (
         <div key={move} className = "battle-moves">
-             {move}
+             <span className = "move">{move}</span>
         </div>))}
       </div>
     </div>
