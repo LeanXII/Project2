@@ -13,11 +13,7 @@ const Opponent = ({pokemon, playerTurn, setPlayerTurn, hp, changePlayerHp }) =>{
 
 
 
-  const handleOpponentTurn = () =>{
-    if(!playerTurn){
-      
-    }
-  }
+
 
 
   return(

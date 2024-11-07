@@ -33,7 +33,7 @@ useEffect(() => {
 
 
 
-  console.log(team)
+  
 
   return (
     <div>
@@ -45,8 +45,8 @@ useEffect(() => {
         <div key = {index}className = "team-pokemon">
           <p>{pokemon.name}</p>
           <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
-  
-          
+
+
 
         <PokeCare
           pokemon={pokemon}
