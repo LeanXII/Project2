@@ -244,6 +244,8 @@ overflow: hidden;
   position: fixed;
   top: 100px;
   left: 40%;
+}
+
 .team-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

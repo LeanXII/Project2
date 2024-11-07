@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Modal from './Modal';
+import AdventureGame from './AdventureGame';
 
 const PokeCare = ({pokemon, setTeam}) =>{
 const navigate = useNavigate();
@@ -7,6 +9,9 @@ const navigate = useNavigate();
 
 const [hunger, setHunger] = useState(50);
 const [happiness, setHappiness] = useState(50);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
 const feedPokemon = () => {
     if (hunger === 100) {
@@ -32,6 +37,18 @@ const playWithPoke = () => {
     setHunger((prevHunger) => Math.max(prevHunger - 10, 0));
 
 };
+
+const startAdventure = () => {
+    setIsModalOpen(true);
+}
+
+const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
 // const levelUp = () => {
 //     setLevel(level + 1, 100);
@@ -100,6 +117,18 @@ return (
 <button onClick={petPokemon}>Pet Pokemon</button>
 <button onClick={playWithPoke}>Play with Poke</button>
 <button onClick={saveChanges}>Save Changes</button>
+<button onClick={startAdventure}>Start Adventure</button>
+
+<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+    <AdventureGame 
+    hunger={hunger} 
+    happiness={happiness} 
+    setHunger={setHunger} 
+    setHappiness={setHappiness}
+    closeModal={closeModal}
+    />
+
+</Modal>
 
 
 
