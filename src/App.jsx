@@ -6,6 +6,7 @@ import PokeTeam from './PokeTeam'
 import PokeBattle from './PokeBattleComponents/PokeBattle'
 import PokeCare from './PokeCare'
 import PokeBallIndicator from './PokeBallIndicator'
+import AdventureGame from './AdventureGame'
 
 function App() {
   const[team, setTeam]= useState([])
@@ -60,6 +61,7 @@ maxTeam = {max_team_size}
           setTeam={setTeam} />}/>
           <Route path= '/battle' element={<PokeBattle />} />
           <Route path= '/care' element={<PokeCare />}/>
+          <Route path="/adventure" element={<AdventureGame />}/>
         </Routes>
       </div>
     </>
