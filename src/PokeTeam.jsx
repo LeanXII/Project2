@@ -31,6 +31,12 @@ useEffect(() => {
     navigate('/battle', {state: {fighter: pokemon}})
   }
 
+  const handleRemoveFromTeam = (pokemonId, e) => {
+    e.stopPropagation(); // Prevent battle selection when clicking remove button
+    const newTeam = team.filter(pokemon => pokemon.id !== pokemonId);
+    setTeam(newTeam);
+    localStorage.setItem('pokemonTeam', JSON.stringify(newTeam));
+  };
 
   console.log(team)
 
@@ -42,8 +48,16 @@ useEffect(() => {
 
       return(
         <div key = {index}className = "team-pokemon">
-          <p>{pokemon.name}</p>
-          <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default}></img>
+          <div className="team-pokemon-header">
+            <p>{pokemon.name}</p>
+            <button 
+              className="remove-button"
+              onClick={(e) => handleRemoveFromTeam(pokemon.id, e)}
+            >
+              Remove from Team
+            </button>
+          </div>
+          <img onClick={()=>handleBattleSelection(pokemon)} src = {pokemon.sprites.front_default} alt={pokemon.name}></img>
 
 
         <PokeCare

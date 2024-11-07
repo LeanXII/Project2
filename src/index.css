@@ -238,3 +238,37 @@ overflow: hidden;
   border-radius: 5px;
 
 }
+
+.team-pokemon {
+  position: relative;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  transition: transform 0.2s;
+}
+
+.team-pokemon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.remove-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f;
+}
+
+.team-pokemon img {
+  cursor: pointer;
+}
