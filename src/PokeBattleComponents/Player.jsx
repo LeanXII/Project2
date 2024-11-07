@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {gsap} from 'gsap'
-import {useGSAP} from '@gsap/react'
+
 
 
 const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp}) =>{
