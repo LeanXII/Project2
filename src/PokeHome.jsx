@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PokeList  from './PokeList';
 
 const PokeHome = ({team, setTeam, maxTeam}) => {
-  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=151")
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=500")
   const [currPokeList, setCurrPokeList] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const[searchTerm, setSearchTerm] = useState("")
@@ -30,9 +30,9 @@ const PokeHome = ({team, setTeam, maxTeam}) => {
     <div>
         <div style={{
             position: 'fixed',
-            top: '-70px',  
-            left: '50%',  
-            transform: 'translateX(-50%)',  
+            top: '-70px',
+            left: '50%',
+            transform: 'translateX(-50%)',
             zIndex: 1000
         }}>
             <input
@@ -45,14 +45,14 @@ const PokeHome = ({team, setTeam, maxTeam}) => {
                     border: 'none',
                     width: '200px',
                     fontSize: '16px',
-                    height: '20px'  
+                    height: '20px'
                 }}
                 value={searchValue}
                 onChange={(event) => handleSearch(event.target.value)}
             />
         </div>
-        
-        <div style={{ marginTop: '60px' }}>  
+
+        <div style={{ marginTop: '60px' }}>
             <div className = "poke-container">
                 {currPokeList.map((pokemon, index)=> {
                 return(

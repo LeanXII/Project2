@@ -1,8 +1,19 @@
 import {useState} from 'react'
+import {gsap} from 'gsap'
+import {useGSAP} from '@gsap/react'
 
 
-const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
+const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp}) =>{
  const [moveDamage, setMoveDamage] = useState('')
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11,19 +22,19 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp }) =>{
       fetch(moveUrl)
       .then(res=>res.json())
       .then(data=> {
-        // setMoveDamage(data.power)
+        animatePlayer()
           changeOpponentHp(data.power, data.damage_class.name, data.type.name)
           setPlayerTurn(!playerTurn)
         })
     }
-    
+
   }
 
   return(
 
     <>
 
-     <img src = {pokemon.sprites.back_default} />
+     <img className = "player-sprite" src = {pokemon.sprites.back_default} />
 
     </>
 

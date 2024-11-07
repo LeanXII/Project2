@@ -1,6 +1,6 @@
 const PokeBallIndicator = ({ isFilled }) => {
-  console.log('Is filled:', isFilled);
-  
+
+
   return (
     <div style={{
       width: '24px',

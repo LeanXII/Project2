@@ -23,7 +23,15 @@ a:hover {
   color: #535bf2;
 }
 
+@font-face {
+  font-family: 'OldSchoolPokemon';
+  src: url(src/assets/fonts/POKEMONGB-RAEO.TTF)
+}
 
+@font-face{
+  font-family: 'NewSchoolPokemon';
+  src: url(src/assets/fonts/POCKETMONK-15ZE.TTF)
+}
 
 h1 {
   font-size: 3.2em;
@@ -97,17 +105,16 @@ button:focus-visible {
 
 
 
-
 }
 
 .poke-details:hover {
-  transform: scale(1.00); 
+  transform: scale(1.00);
 }
 
 .poke-details img {
 
   margin: auto;
-  width: 200px; 
+  width: 200px;
   height: 200px;
 
 
@@ -129,7 +136,7 @@ button:focus-visible {
   display: flex;
   flex-flow: row wrap;
   margin-left: 20%;
-  overflow-y: scroll;
+
 
 }
 
@@ -204,18 +211,33 @@ button:focus-visible {
 .battle-scenery{
   grid-area: 4/3/8/5;
   height: 100%;
-  width: 167%
+  width: 167%;
+  border-radius: 5px;
+
 }
 
 .turn-checker{
-  position: fixed;
-  top: 150px;
-  left: 200px;
+  grid-area: 3/4/4/5;
+  font-family: 'NewSchoolPokemon';
+  color: yellow;
+  font-size: 25px;
 
 }
 
 .battle-moves{
   cursor: pointer;
+  display: flex;
+  background-color: white;
+  margin-top: 8px;
+  border-radius: 3px;
+  color: black;
+  font-size: 13px;
+  height: 10%;
+  align-items: center;
+}
+
+.move{
+  margin-left: 5px;
 }
 
 .meter {
@@ -231,6 +253,28 @@ overflow: hidden;
   font-weight: bold;
   transition: width 0.5s ease-in-out;
   border-radius: 10px;
+}
+
+.log-container{
+  grid-area: 4/1/7/3;
+  overflow-y: scroll;
+  margin-left: 10px;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 1px black;
+
+}
+
+.player-log{
+  color: green;
+  margin-left: 5px;
+}
+.opponent-log{
+  color: red;
+  margin-left: 5px;
+}
+
+.special-text{
+  color: lightblue;
 }
 
 .hp-bar{
