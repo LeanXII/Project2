@@ -161,7 +161,7 @@ const PokeBattle = () => {
       switch(moveType){
 
         case "normal":
-          if (opponentTypeArray.includes('rock')){
+          if (opponentTypeArray.includes('rock')|| opponentTypeArray.includes('steel')){
             multiplier = 0.5
            }
            if(opponentTypeArray.includes('ghost')){
@@ -172,7 +172,7 @@ const PokeBattle = () => {
           if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('water') || opponentTypeArray.includes('rock') || opponentTypeArray.includes('dragon')){
             multiplier = 0.5
            }
-          if(opponentTypeArray.includes('grass')|| opponentTypeArray.includes('ice')||opponentTypeArray.includes('bug')){
+          if(opponentTypeArray.includes('grass')|| opponentTypeArray.includes('ice')||opponentTypeArray.includes('bug') || opponentTypeArray.includes('steel')){
             multiplier = 2;
           }
         break;
@@ -196,7 +196,7 @@ const PokeBattle = () => {
           }
         break;
         case "grass":
-          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('grass') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('bug') || opponentTypeArray.includes('dragon')){
+          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('steel') || opponentTypeArray.includes('grass') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('bug') || opponentTypeArray.includes('dragon')){
             multiplier = 0.5;
           }
           if(opponentTypeArray.includes('water') || opponentTypeArray.includes('ground') || opponentTypeArray.includes('rock')){
@@ -204,7 +204,7 @@ const PokeBattle = () => {
           }
         break;
         case "ice":
-          if(opponentTypeArray.includes('water') || opponentTypeArray.includes('ice')){
+          if(opponentTypeArray.includes('water') || opponentTypeArray.includes('ice') || opponentTypeArray.includes('steel')){
             multiplier = 0.5;
           }
           if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('ground') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('dragon')){
@@ -212,10 +212,10 @@ const PokeBattle = () => {
           }
         break;
         case "fighting":
-          if(opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('psychic') || opponentTypeArray.includes('bug')){
+          if(opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('psychic') || opponentTypeArray.includes('bug') ){
             multiplier = 0.5;
           }
-          if(opponentTypeArray.includes('normal') || opponentTypeArray.includes('ice') || opponentTypeArray.includes('rock')){
+          if(opponentTypeArray.includes('normal') || opponentTypeArray.includes('ice') || opponentTypeArray.includes('rock')|| opponentTypeArray.includes('steel') || opponentTypeArray.includes('dark')){
             multiplier = 2;
           }
           if(opponentTypeArray.includes('ghost')){
@@ -229,12 +229,15 @@ const PokeBattle = () => {
           if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('bug')){
             multiplier = 2;
           }
+          if(opponentTypeArray.includes('steel')){
+            multiplier = 0;
+          }
         break;
         case "ground":
           if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('bug')){
             multiplier = 0.5;
           }
-          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('electric') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('rock')){
+          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('electric') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('rock') || opponentTypeArray.includes('steel')){
             multiplier = 2;
           }
           if(opponentTypeArray.includes('flying')){
@@ -242,7 +245,7 @@ const PokeBattle = () => {
           }
         break;
         case "flying":
-          if(opponentTypeArray.includes('electric') || opponentTypeArray.includes('rock')){
+          if(opponentTypeArray.includes('electric') || opponentTypeArray.includes('rock')|| opponentTypeArray.includes('steel')){
             multiplier = 0.5;
           }
           if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('fighting') || opponentTypeArray.includes('bug')){
@@ -250,23 +253,26 @@ const PokeBattle = () => {
           }
         break;
         case "psychic":
-          if(opponentTypeArray.includes('psychic')){
+          if(opponentTypeArray.includes('psychic')|| opponentTypeArray.includes('steel')){
             multiplier = 0.5;
           }
           if(opponentTypeArray.includes('fighting') || opponentTypeArray.includes('poison')){
             multiplier = 2;
           }
+          if(opponentTypeArray.includes('dark')){
+            multiplier = 0;
+          }
         break;
         case "bug":
-          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('fighting') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('ghost')){
+          if(opponentTypeArray.includes('fire')|| opponentTypeArray.includes('steel') || opponentTypeArray.includes('fighting') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('ghost')){
             multiplier = 0.5;
           }
-          if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('psychic')){
+          if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('psychic') || opponentTypeArray.includes('dark')){
             multiplier = 2;
           }
         break;
         case "rock":
-          if(opponentTypeArray.includes('fighting') || opponentTypeArray.includes('ground')){
+          if(opponentTypeArray.includes('fighting') || opponentTypeArray.includes('steel') || opponentTypeArray.includes('ground')){
             multiplier = 0.5;
           }
           if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('ice') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('bug')){
@@ -274,18 +280,40 @@ const PokeBattle = () => {
           }
         break;
         case "ghost":
+          if(opponentTypeArray.includes('steel') || opponentTypeArray.includes('dark')){
+            multiplier = 0.5;
+          }
           if(opponentTypeArray.includes('ghost')){
             multiplier = 2;
           }
           if(opponentTypeArray.includes('normal')){
             multiplier = 0;
           }
+
         break;
         case "dragon":
+          if(opponentTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
           if(opponentTypeArray.includes('dragon')){
             multiplier  = 2;
           }
         break;
+        case "dark":
+          if(opponentTypeArray.includes('fighting') || opponentTypeArray.includes('dark') || opponentTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(opponentTypeArray.includes('psychic') || opponentTypeArray.includes('ghost')){
+            multiplier = 2;
+          }
+        break;
+        case "steel":
+          if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('water') || opponentTypeArray.includes('electric') || opponentTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(opponentTypeArray.includes('ice') || opponentTypeArray.includes('rock')){
+            multiplier = 2;
+          }
 
 
         }
@@ -347,26 +375,27 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
 
 
 
+
     let multiplier = 1;
     let multiplierText = '';
 
-    switch(moveType){
+      switch(moveType){
 
-      case "normal":
-        if (playerTypeArray.includes('rock')){
-          multiplier = 0.5
-        }
-        if(playerTypeArray.includes('ghost')){
-          multiplier = 0;
-        }
+        case "normal":
+          if (playerTypeArray.includes('rock')|| playerTypeArray.includes('steel')){
+            multiplier = 0.5
+           }
+           if(playerTypeArray.includes('ghost')){
+            multiplier = 0;
+           }
         break;
-      case "fire":
-        if(playerTypeArray.includes('fire') || playerTypeArray.includes('water') || playerTypeArray.includes('rock') || playerTypeArray.includes('dragon')){
-          multiplier = 0.5
-        }
-        if(playerTypeArray.includes('grass')|| playerTypeArray.includes('ice')||playerTypeArray.includes('bug')){
-          multiplier = 2;
-        }
+        case "fire":
+          if(playerTypeArray.includes('fire') || playerTypeArray.includes('water') || playerTypeArray.includes('rock') || playerTypeArray.includes('dragon')){
+            multiplier = 0.5
+           }
+          if(playerTypeArray.includes('grass')|| playerTypeArray.includes('ice')||playerTypeArray.includes('bug') || playerTypeArray.includes('steel')){
+            multiplier = 2;
+          }
         break;
         case "water":
           if(playerTypeArray.includes('water')|| playerTypeArray.includes('grass') || playerTypeArray.includes('dragon')){
@@ -375,109 +404,139 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
           if(playerTypeArray.includes('fire') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock')){
             multiplier = 2;
           }
-          break;
-          case "electric":
-            if(playerTypeArray.includes('electric') || playerTypeArray.includes('grass') || playerTypeArray.includes('dragon')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('water') || playerTypeArray.includes('flying')){
-              multiplier = 2;
-            }
-            if(playerTypeArray.includes('ground')){
-              multiplier = 0;
-            }
-          break;
-          case "grass":
-            if(playerTypeArray.includes('fire') || playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug') || playerTypeArray.includes('dragon')){
-              multiplier = 0.5;
-              }
-            if(playerTypeArray.includes('water') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock')){
-              multiplier = 2;
-              }
-          break;
-          case "ice":
-            if(playerTypeArray.includes('water') || playerTypeArray.includes('ice')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('grass') || playerTypeArray.includes('ground') || playerTypeArray.includes('flying') || playerTypeArray.includes('dragon')){
-              multiplier = 2;
-            }
-          break;
-          case "fighting":
-            if(playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('psychic') || playerTypeArray.includes('bug')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('normal') || playerTypeArray.includes('ice') || playerTypeArray.includes('rock')){
-              multiplier = 2;
-            }
-            if(playerTypeArray.includes('ghost')){
-              multiplier = 0;
-            }
-          break;
-          case "poison":
-            if(playerTypeArray.includes('poison') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock') || playerTypeArray.includes('ghost')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
-              multiplier = 2;
-            }
-          break;
-          case "ground":
-            if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('fire') || playerTypeArray.includes('electric') || playerTypeArray.includes('poison') || playerTypeArray.includes('rock')){
-              multiplier = 2;
-            }
-            if(playerTypeArray.includes('flying')){
-              multiplier = 0;
-            }
-          break;
-          case "flying":
-            if(playerTypeArray.includes('electric') || playerTypeArray.includes('rock')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('grass') || playerTypeArray.includes('fighting') || playerTypeArray.includes('bug')){
-              multiplier = 2;
-            }
-          break;
-          case "psychic":
-            if(playerTypeArray.includes('psychic')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('fighting') || playerTypeArray.includes('poison')){
-              multiplier = 2;
-            }
-          break;
-          case "bug":
-            if(playerTypeArray.includes('fire') || playerTypeArray.includes('fighting') || playerTypeArray.includes('flying') || playerTypeArray.includes('ghost')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('psychic')){
-              multiplier = 2;
-            }
-          break;
-          case "rock":
-            if(playerTypeArray.includes('fighting') || playerTypeArray.includes('ground')){
-              multiplier = 0.5;
-            }
-            if(playerTypeArray.includes('fire') || playerTypeArray.includes('ice') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug')){
-              multiplier = 2;
-            }
-          break;
-          case "ghost":
-            if(playerTypeArray.includes('ghost')){
-              multiplier = 2;
-            }
-            if(playerTypeArray.includes('normal')){
-              multiplier = 0;
-            }
-          break;
-          case "dragon":
-            if(playerTypeArray.includes('dragon')){
-              multiplier  = 2;
-            }
-          break;
+        break;
+        case "electric":
+          if(playerTypeArray.includes('electric') || playerTypeArray.includes('grass') || playerTypeArray.includes('dragon')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('water') || playerTypeArray.includes('flying')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('ground')){
+            multiplier = 0;
+          }
+        break;
+        case "grass":
+          if(playerTypeArray.includes('fire') || playerTypeArray.includes('steel') || playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug') || playerTypeArray.includes('dragon')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('water') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock')){
+            multiplier = 2;
+          }
+        break;
+        case "ice":
+          if(playerTypeArray.includes('water') || playerTypeArray.includes('ice') || playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('grass') || playerTypeArray.includes('ground') || playerTypeArray.includes('flying') || playerTypeArray.includes('dragon')){
+            multiplier = 2;
+          }
+        break;
+        case "fighting":
+          if(playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('psychic') || playerTypeArray.includes('bug') ){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('normal') || playerTypeArray.includes('ice') || playerTypeArray.includes('rock')|| playerTypeArray.includes('steel') || playerTypeArray.includes('dark')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('ghost')){
+            multiplier = 0;
+          }
+        break;
+        case "poison":
+          if(playerTypeArray.includes('poison') || playerTypeArray.includes('ground') || playerTypeArray.includes('rock') || playerTypeArray.includes('ghost')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('steel')){
+            multiplier = 0;
+          }
+        break;
+        case "ground":
+          if(playerTypeArray.includes('grass') || playerTypeArray.includes('bug')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('fire') || playerTypeArray.includes('electric') || playerTypeArray.includes('poison') || playerTypeArray.includes('rock') || playerTypeArray.includes('steel')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('flying')){
+            multiplier = 0;
+          }
+        break;
+        case "flying":
+          if(playerTypeArray.includes('electric') || playerTypeArray.includes('rock')|| playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('grass') || playerTypeArray.includes('fighting') || playerTypeArray.includes('bug')){
+            multiplier = 2;
+          }
+        break;
+        case "psychic":
+          if(playerTypeArray.includes('psychic')|| playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('fighting') || playerTypeArray.includes('poison')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('dark')){
+            multiplier = 0;
+          }
+        break;
+        case "bug":
+          if(playerTypeArray.includes('fire')|| playerTypeArray.includes('steel') || playerTypeArray.includes('fighting') || playerTypeArray.includes('flying') || playerTypeArray.includes('ghost')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('psychic') || playerTypeArray.includes('dark')){
+            multiplier = 2;
+          }
+        break;
+        case "rock":
+          if(playerTypeArray.includes('fighting') || playerTypeArray.includes('steel') || playerTypeArray.includes('ground')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('fire') || playerTypeArray.includes('ice') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug')){
+            multiplier = 2;
+          }
+        break;
+        case "ghost":
+          if(playerTypeArray.includes('steel') || playerTypeArray.includes('dark')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('ghost')){
+            multiplier = 2;
+          }
+          if(playerTypeArray.includes('normal')){
+            multiplier = 0;
+          }
+
+        break;
+        case "dragon":
+          if(playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('dragon')){
+            multiplier  = 2;
+          }
+        break;
+        case "dark":
+          if(playerTypeArray.includes('fighting') || playerTypeArray.includes('dark') || playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('psychic') || playerTypeArray.includes('ghost')){
+            multiplier = 2;
+          }
+        break;
+        case "steel":
+          if(playerTypeArray.includes('fire') || playerTypeArray.includes('water') || playerTypeArray.includes('electric') || playerTypeArray.includes('steel')){
+            multiplier = 0.5;
+          }
+          if(playerTypeArray.includes('ice') || playerTypeArray.includes('rock')){
+            multiplier = 2;
+          }
+
+
 
 
       }
@@ -568,8 +627,9 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
       <p className = "hp-bar" style={{width: `${playerHp/pokemon.stats[0].base_stat*100}%`}}>{playerHp}/{pokemon.stats[0].base_stat}</p>
       <h3>Moves:</h3>
       {randomPlayerMoves.map(move => (
-        <div className = "battle-moves" onClick={()=>{handleMoveSelect(move); animatePlayer()}}  key={move} >
-             <span className = "move">{move}</span>
+        <div className = {`battle-moves`} onClick={()=>{handleMoveSelect(move); animatePlayer()}}  key={move} >
+             <span className = 'move' >{move}</span>
+             {console.log(move.type)}
         </div>))}
      </div>
 
