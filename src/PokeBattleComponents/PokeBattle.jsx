@@ -20,6 +20,13 @@ const PokeBattle = () => {
   const [playerVictory, setPlayerVictory] = useState(false)
   const [opponentVictory, setOpponentVictory] = useState(false)
   const [turnNumber, setTurnNumber] = useState(0)
+  const [turnAction, setTurnAction] = useState(true)
+  const [opponentStatus, setOpponentStatus] = useState({status: ''})
+  const [opponentStatusText, setOpponentStatusText] = useState('')
+  const [playerStatus, setPlayerStatus] = useState({status: ''})
+  const [playerStatusText, setPlayerStatusText] = useState('')
+  const [triggerForAnotherTrigger, setTriggerForAnotherTrigger] = useState(true)
+
 
   let location = useLocation()
   let pokemon = location.state.fighter;
@@ -60,6 +67,7 @@ const PokeBattle = () => {
       let attackArray = attackMoves.map(move => move.name);
 
 
+
       let playerAttackMovesArray = flattenedPlayerMovesArray.filter((move) => attackArray.includes(move));
       let opponentAttackMovesArray = flattenedOpponentMovesArray.filter((move) => attackArray.includes(move));
 
@@ -83,6 +91,19 @@ const PokeBattle = () => {
     }
   }, [attackMoves, opponent, pokemon]);
 
+  useEffect(()=>{
+
+
+    switch(opponentStatus.status){
+      case 'paralyzed':
+        setOpponentStatusText(`${opponent.name} is paralyzed!`)
+      break;
+      case 'frozen':
+        setOpponentStatusText(`${opponent.name} is frozen!`)
+    }
+    setTurnAction(!turnAction)
+  }, [triggerForAnotherTrigger])
+
   const animatePlayer = () =>{
 
     gsap.to(".player-sprite", {
@@ -94,7 +115,7 @@ const PokeBattle = () => {
       yoyo: true,
       repeat: 1
     })
-    console.log('function called')
+
   }
 
   const animateOpponent = () =>{
@@ -112,35 +133,103 @@ const PokeBattle = () => {
   }
 
 
+  useEffect(()=>{
+    setTimeout(()=>{
+      if(opponentStatus.status==='paralyzed'){
+
+        console.log('inside if statement')
+        let randomChance = Math.floor(Math.random()*100)
+        if(randomChance<=25){
+          setTurnLog(prevState =>({
+            ...prevState,
+            [turnNumber]: {...prevState[turnNumber],
+                        opponentLog: `${opponent.name} is paralyzed! It can't move!`
+            }
+          }))
+          setTurnNumber((prevState)=>prevState +1)
+
+          setPlayerTurn(true)
+          return;
+        }
+      }
+
+      if(opponentStatus.status === 'frozen'){
+        let randomChance = Math.floor(Math.random()*100)
+        if(randomChance<=20){
+          setOpponentStatus({status: ''})
+          setOpponentStatusText('')
+        }
+        else{
+          setTurnLog((prevState)=>({
+            ...prevState,
+            [turnNumber]: {...prevState[turnNumber],
+                            opponentLog: `${opponent.name} is frozen! It can't move!`
+            }
+          }))
+          setTurnNumber((prevState)=>prevState+1)
+
+          setPlayerTurn(true)
+          return;
+        }
+      }
+        let move = randomOpponentMoves[Math.floor(Math.random()*4)]
+        move = move.toLowerCase()
+        fetch(`https://pokeapi.co/api/v2/move/${move}`)
+        .then(res=>res.json())
+        .then(data=>{
+
+          animateOpponent()
+          changePlayerHp(data.power, data.damage_class.name, data.type.name, move)
+          setPlayerTurn(true)
+
+        })
+    }, 2000)
+
+  }, [turnAction])
 
 
   const handleMoveSelect = (move) => {
-    if(playerTurn){
+    if(!playerTurn) return
+    let randomNumber
+    switch(playerStatus.status){
+      case 'paralyzed':
+        randomNumber = Math.floor(Math.random()*100)
+        if(randomNumber<=25){
+          setTurnLog(prevState=>({
+            ...prevState,
+            [turnNumber]: {playerLog: `${pokemon.name} is paralyzed! It can't move!`}
+          }))
+
+          setTurnAction(!turnAction)
+          return
+        }
+      break;
+      case 'frozen':
+        randomNumber = Math.floor(Math.random()*100)
+        if(randomNumber<=20){
+          opponentStatus.status = ''
+          setPlayerStatusText('')
+        }
+        else{
+          setTurnLog((prevState)=>({
+            ...prevState,
+            [turnNumber]: {playerLog: `${pokemon.name} is frozen! It can't move!`}
+          }))
+
+          setTurnAction(!turnAction)
+          return
+        }
+    }
+
+
       move = move.toLowerCase();
       fetch( `https://pokeapi.co/api/v2/move/${move}`)
       .then(res=>res.json())
       .then(data=> {
+         animatePlayer()
           changeOpponentHp(data.power, data.damage_class.name, data.type.name, move)
           setPlayerTurn(!playerTurn)
-
-
-            setTimeout(()=>{
-                let move = randomOpponentMoves[Math.floor(Math.random()*4)]
-                move = move.toLowerCase()
-                fetch(`https://pokeapi.co/api/v2/move/${move}`)
-                .then(res=>res.json())
-                .then(data=>{
-
-                  animateOpponent()
-                  changePlayerHp(data.power, data.damage_class.name, data.type.name, move)
-                  setPlayerTurn(playerTurn)
-
-                })
-            }, 2000)
-
         })
-
-    }
   }
 
 
@@ -151,7 +240,10 @@ const PokeBattle = () => {
     let opponentTypeArrayObject = opponent.types;
     let opponentTypeArray = opponentTypeArrayObject.map((elm => elm.type.name))
 
-
+    let paralyzeChance = 0;
+    let freezeChance = 0;
+    // let burnChance = 0;
+    // let poisonChance = 0;
 
 
 
@@ -194,6 +286,7 @@ const PokeBattle = () => {
           if(opponentTypeArray.includes('ground')){
             multiplier = 0;
           }
+          paralyzeChance = 10;
         break;
         case "grass":
           if(opponentTypeArray.includes('fire') || opponentTypeArray.includes('steel') || opponentTypeArray.includes('grass') || opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('bug') || opponentTypeArray.includes('dragon')){
@@ -210,6 +303,7 @@ const PokeBattle = () => {
           if(opponentTypeArray.includes('grass') || opponentTypeArray.includes('ground') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('dragon')){
             multiplier = 2;
           }
+          freezeChance = 100;
         break;
         case "fighting":
           if(opponentTypeArray.includes('poison') || opponentTypeArray.includes('flying') || opponentTypeArray.includes('psychic') || opponentTypeArray.includes('bug') ){
@@ -328,7 +422,7 @@ const PokeBattle = () => {
     switch(attackType){
       case "special":
          finalDamage = (((2/5 +2)*damage *pokemon.stats[3].base_stat/opponent.stats[4].base_stat/50)+2)*multiplier
-         console.log(finalDamage)
+
       break;
       case "physical":
          finalDamage = (((2/5 +2)*damage *pokemon.stats[1].base_stat/opponent.stats[2].base_stat/50)+2)*multiplier
@@ -346,24 +440,42 @@ const PokeBattle = () => {
         multiplierText = "No Effect..."
     }
 
-
-
+    let randomNumber = Math.floor(Math.random() * 100)
+    if(randomNumber<=paralyzeChance && opponentStatus.status === ''){
+      setOpponentStatus({status: 'paralyzed'})
+      setTriggerForAnotherTrigger(!triggerForAnotherTrigger)
+    }
+    else{
+      setTriggerForAnotherTrigger(!triggerForAnotherTrigger)
+    }
+    if(randomNumber<=freezeChance && opponentStatus.status === ''){
+      setOpponentStatus({status: 'frozen'})
+      setTriggerForAnotherTrigger(!triggerForAnotherTrigger)
+    }
+    else{
+      setTriggerForAnotherTrigger(!triggerForAnotherTrigger)
+    }
 
     setOpponentHp((prevState=>{
       let newHp = prevState-finalDamage;
-      setTurnLog(prevState=>({
-        ...prevState,
-        [turnNumber]: {playerLog: [move, Math.floor(finalDamage), multiplierText]}
-      }))
-      if(newHp<=0){
-        newHp = 0
-        setPlayerVictory(true)
-      }
-      return Math.floor(newHp)
-  }))
-}
 
-const changePlayerHp = (damage, attackType, moveType, move) =>{
+        setTurnLog(prevState=>({
+          ...prevState,
+          [turnNumber]: {playerLog: `${playerStatusText} ${pokemon.name} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`}
+        }))
+        if(newHp<=0){
+          newHp = 0
+          setPlayerVictory(true)
+        }
+        return Math.floor(newHp)
+    }))
+
+  }
+
+
+
+
+  const changePlayerHp = (damage, attackType, moveType, move) =>{
 
   let playerTypeArrayObject = pokemon.types;
   let playerTypeArray = playerTypeArrayObject.map((elm => elm.type.name))
@@ -374,7 +486,8 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
   else{
 
 
-
+    let paralyzeChance = 0;
+    let freezeChance = 0;
 
     let multiplier = 1;
     let multiplierText = '';
@@ -415,6 +528,7 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
           if(playerTypeArray.includes('ground')){
             multiplier = 0;
           }
+          paralyzeChance = 100;
         break;
         case "grass":
           if(playerTypeArray.includes('fire') || playerTypeArray.includes('steel') || playerTypeArray.includes('grass') || playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('bug') || playerTypeArray.includes('dragon')){
@@ -431,6 +545,7 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
           if(playerTypeArray.includes('grass') || playerTypeArray.includes('ground') || playerTypeArray.includes('flying') || playerTypeArray.includes('dragon')){
             multiplier = 2;
           }
+          freezeChance = 100
         break;
         case "fighting":
           if(playerTypeArray.includes('poison') || playerTypeArray.includes('flying') || playerTypeArray.includes('psychic') || playerTypeArray.includes('bug') ){
@@ -570,17 +685,27 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
         break;
       }
 
+      let randomNumber = Math.floor(Math.random() * 100)
+      if(randomNumber<=paralyzeChance && playerStatus.status === ''){
+        setPlayerStatus({status: 'paralyzed'})
+        setPlayerStatusText(`${pokemon.name} is paralyzed!`)
+      }
+      if(randomNumber<=freezeChance && playerStatus.status ===''){
+        setPlayerStatus({status: 'frozen'})
+        setPlayerStatusText(`${pokemon.name} is frozen!`)
+      }
 
 
+      setTurnLog(prevState =>({
+        ...prevState,
+        [turnNumber]: {...prevState[turnNumber],
+                    opponentLog: `${opponentStatusText} ${opponent.name} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`
+        }
+      }))
 
       setPlayerHp((prevState=>{
         let newHp = prevState-finalDamage;
-        setTurnLog(prevState =>({
-          ...prevState,
-          [turnNumber]: {...prevState[turnNumber],
-                      opponentLog: [move, Math.floor(finalDamage), multiplierText]
-          }
-        }))
+
         setTurnNumber(prevState => (
           prevState + 1
         ))
@@ -627,9 +752,9 @@ const changePlayerHp = (damage, attackType, moveType, move) =>{
       <p className = "hp-bar" style={{width: `${playerHp/pokemon.stats[0].base_stat*100}%`}}>{playerHp}/{pokemon.stats[0].base_stat}</p>
       <h3>Moves:</h3>
       {randomPlayerMoves.map(move => (
-        <div className = {`battle-moves`} onClick={()=>{handleMoveSelect(move); animatePlayer()}}  key={move} >
+        <div className = {`battle-moves`} onClick={()=>{handleMoveSelect(move)}}  key={move} >
              <span className = 'move' >{move}</span>
-             {console.log(move.type)}
+
         </div>))}
      </div>
 

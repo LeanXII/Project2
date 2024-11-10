@@ -17,12 +17,14 @@ const BattleLog = ({log}) =>{
     <div ref = {logContainerDiv} className = "log-container">
        {Object.keys(log).map((key)=>(
          <>
-          <p className = "player-log" key = {key}>Player uses {log[key].playerLog[0]} to deal {log[key].playerLog[1]} damage! <span className = "special-text">{log[key].playerLog[2]}</span></p>
+          <p className = "player-log" key = {key}>{log[key].playerLog}</p>
 
 
           {log[key].hasOwnProperty('opponentLog') && (
-            <p className = "opponent-log" key = {key}>Opponent uses {log[key].opponentLog[0]} to deal {log[key].opponentLog[1]} damage! <span className = "special-text">{log[key].opponentLog[2]}</span></p>
+
+            <p className = "opponent-log" key = {key}>{log[key].opponentLog}</p>
           )}
+
 
          </>
        ))}
