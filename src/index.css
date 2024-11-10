@@ -265,11 +265,11 @@ overflow: hidden;
 }
 
 .player-log{
-  color: green;
+  color: lightgreen;
   margin-left: 5px;
 }
 .opponent-log{
-  color: red;
+  color: rgb(236, 118, 118);
   margin-left: 5px;
 }
 
