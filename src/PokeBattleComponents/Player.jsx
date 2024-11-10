@@ -9,27 +9,6 @@ const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp}) =>{
 
 
 
-
-
-
-
-
-
-
-
-  const handleMoveSelect = (moveUrl) => {
-    if(playerTurn){
-      fetch(moveUrl)
-      .then(res=>res.json())
-      .then(data=> {
-        animatePlayer()
-          changeOpponentHp(data.power, data.damage_class.name, data.type.name)
-          setPlayerTurn(!playerTurn)
-        })
-    }
-
-  }
-
   return(
 
     <>
