@@ -9,6 +9,7 @@ export const multiplierAndConditionsCheck = (typeArray, moveType) => {
   let multiplier = 1;
   let freezeChance = 0;
   let paralyzeChance = 0;
+  let statusCondition;
 
   switch (moveType) {
     case "normal":
@@ -74,6 +75,7 @@ export const multiplierAndConditionsCheck = (typeArray, moveType) => {
         multiplier = 0;
       }
       paralyzeChance = 10;
+      statusCondition = 'paralyzed'
       break;
     case "grass":
       if (
@@ -112,6 +114,7 @@ export const multiplierAndConditionsCheck = (typeArray, moveType) => {
         multiplier = 2;
       }
       freezeChance = 100;
+      statusCondition = 'frozen';
       break;
     case "fighting":
       if (
@@ -309,12 +312,35 @@ export const multiplierAndConditionsCheck = (typeArray, moveType) => {
       multiplierText = "No Effect..."
   }
 
+
+
+
   const multAndCondObject = {
     mulitiplier: multiplier,
     multiplierText: multiplierText,
-    pararlyzeChance: paralyzeChance,
-    freezeChace: freezeChance
+    healthy: true,
+    paralyzed: false,
+    frozen: false
   }
-  
+
+
+  let randomNumber = Math.floor(Math.random()*100)
+  switch(statusCondition){
+    case 'paralyzed':
+      if(randomNumber<paralyzeChance && multAndCondObject.healthy){
+        multAndCondObject.paralyzed = true;
+        multAndCondObject.healthy = false;
+      }
+    break;
+    case 'frozen':
+      if(randomNumber<freezeChance && multAndCondObject.healthy){
+        multAndCondObject.frozen = true;
+        multAndCondObject.healthy = false;
+      }
+  }
+
+
+
+
   return multAndCondObject
 };
