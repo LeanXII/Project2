@@ -1,7 +1,7 @@
 import {multiplierAndConditionsCheck} from './moveEffectivness'
 
 
-export const damageCalc = (moveName, power, damageType, moveType, targetTypes, target, source) =>{
+export const damageCalc = (power, damageType, moveType, targetTypes, target, source) =>{
   let targetTypeArray = targetTypes.map((type)=>type.type.name)
 
   let multAndCondObject = multiplierAndConditionsCheck(targetTypeArray, moveType)

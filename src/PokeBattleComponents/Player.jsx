@@ -1,36 +1,26 @@
-import {useState} from 'react'
-import {gsap} from 'gsap'
-
-
-
-const Player = ({pokemon, playerTurn, setPlayerTurn, hp, changeOpponentHp}) =>{
- const [moveDamage, setMoveDamage] = useState('')
+import { useState } from "react";
+import { gsap } from "gsap";
 
 
 
 
-  return(
 
+const Player = ({ player }) => {
+
+  console.log(player)
+
+
+
+
+
+  return (
     <>
-
-     <img className = "player-sprite" src = {pokemon.sprites.back_default} />
-
+      <img className="player-sprite" src={player.sprite_back} />
+      {player.moves.map((move)=>(
+        <p key = {move.name} className = "battle-moves">{move}</p>
+      ))}
     </>
+  );
+};
 
-      )
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-export default Player
+export default Player;

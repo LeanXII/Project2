@@ -1,18 +1,15 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react";
 
-const Opponent = ({pokemon, playerTurn, setPlayerTurn, hp, changePlayerHp }) =>{
-  const [attackMoves, setAttackMoves] = useState([])
-
-
+const Opponent = ({opponent}) => {
+  const [attackMoves, setAttackMoves] = useState([]);
 
 
-  return(
-    
+  console.log(opponent)
+  return (
     <>
-      <img className = "opponent-sprite" src = {pokemon.sprites.front_default} />
+      <img className="opponent-sprite" src={opponent.sprite_front} />
     </>
-  )
+  );
+};
 
-}
-
-export default Opponent
+export default Opponent;
