@@ -96,10 +96,10 @@ const PokeBattle = () => {
 
     switch(opponentStatus.status){
       case 'paralyzed':
-        setOpponentStatusText(`${opponent.name} is paralyzed!`)
+        setOpponentStatusText(`${opponent.name.charAt(0) + opponent.name.slice(1)} is paralyzed!`)
       break;
       case 'frozen':
-        setOpponentStatusText(`${opponent.name} is frozen!`)
+        setOpponentStatusText(`${opponent.name.charAt(0) + opponent.name.slice(1)} is frozen!`)
     }
     setTurnAction(!turnAction)
   }, [triggerForAnotherTrigger])
@@ -143,7 +143,7 @@ const PokeBattle = () => {
           setTurnLog(prevState =>({
             ...prevState,
             [turnNumber]: {...prevState[turnNumber],
-                        opponentLog: `${opponent.name} is paralyzed! It can't move!`
+                        opponentLog: `${opponent.name.charAt(0).toUpperCase() + opponent.name.slice(1)} is paralyzed! It can't move!`
             }
           }))
           setTurnNumber((prevState)=>prevState +1)
@@ -163,7 +163,7 @@ const PokeBattle = () => {
           setTurnLog((prevState)=>({
             ...prevState,
             [turnNumber]: {...prevState[turnNumber],
-                            opponentLog: `${opponent.name} is frozen! It can't move!`
+                            opponentLog: `${opponent.name.charAt(0).toUpperCase() + opponent.name.slice(1)} is frozen! It can't move!`
             }
           }))
           setTurnNumber((prevState)=>prevState+1)
@@ -461,7 +461,7 @@ const PokeBattle = () => {
 
         setTurnLog(prevState=>({
           ...prevState,
-          [turnNumber]: {playerLog: `${playerStatusText} ${pokemon.name} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`}
+          [turnNumber]: {playerLog: `${playerStatusText} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`}
         }))
         if(newHp<=0){
           newHp = 0
@@ -699,7 +699,7 @@ const PokeBattle = () => {
       setTurnLog(prevState =>({
         ...prevState,
         [turnNumber]: {...prevState[turnNumber],
-                    opponentLog: `${opponentStatusText} ${opponent.name} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`
+                    opponentLog: `${opponentStatusText} ${opponent.name.charAt(0).toUpperCase()+opponent.name.slice(1)} uses ${move} to deal ${Math.floor(finalDamage)} damage! ${multiplierText}`
         }
       }))
 
